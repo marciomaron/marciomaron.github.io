@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Sentient';
+    font-weight: 300;
+    src: url('../fonts/Sentient-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Sentient';
+    font-weight: 500;
+    src: url('../fonts/Sentient-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200 900;
+    src: url('../fonts/Inter-VariableFont.ttf') format('truetype');
+} 
