@@ -171,26 +171,53 @@
 
     <!-- Add this popup for the Cookies message -->
     <div id="cookies-popup" style="display: none; position: fixed; bottom: 60px; left: 20px; background: white; border: 1px solid #ccc; padding: 10px; animation: fadeIn 0.5s;">
-        Este é um site simples, escrito em HTML, para ser o mais rápido possível, que não coleta cookies.
+        <span id="popup-text">Eu não coleto cookies.</span>
     </div>
 
     <!-- Add this CSS for animation -->
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(10px); } /* Move down while fading out */
         }
     </style>
 
     <!-- Add this JavaScript to handle the popup -->
     <script>
-        document.getElementById('cookies-link').onclick = function() {
+        let isPopupVisible = false; // Track the visibility state of the popup
+
+        document.getElementById('cookies-link').onclick = function(event) {
+            event.stopPropagation(); // Prevent event from bubbling up
             var popup = document.getElementById('cookies-popup');
-            popup.style.display = 'block';
-            setTimeout(function() {
-                popup.style.display = 'none';
-            }, 3000); // Popup will disappear after 3 seconds
+            if (!isPopupVisible) {
+                popup.style.display = 'block';
+                popup.style.animation = 'fadeIn 0.5s'; // Apply fade-in animation
+                isPopupVisible = true; // Set the state to visible
+            } else {
+                closePopup(); // Close if already visible
+            }
         };
+
+        // Close the popup when clicking anywhere else on the page
+        document.addEventListener('click', function() {
+            if (isPopupVisible) {
+                closePopup(); // Close the popup
+            }
+        });
+
+        function closePopup() {
+            var popup = document.getElementById('cookies-popup');
+            popup.style.animation = 'fadeOut 0.5s forwards'; // Apply fade-out animation
+            setTimeout(function() {
+                popup.style.display = 'none'; // Hide after animation
+            }, 500); // Match the duration of the fade-out animation
+            isPopupVisible = false; // Set the state to hidden
+        }
     </script>
 </body>
 </html> 
