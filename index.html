@@ -59,6 +59,50 @@
             width: calc(100% - 40px);
             overflow: visible;
         }
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        
+        body.dark-mode a {
+            color: #ffffff;
+        }
+
+        body.dark-mode a:hover {
+            background-color: grey;
+        }
+
+        body.dark-mode .articles-list a {
+            color: grey;
+        }
+
+        body.dark-mode .articles-list a:hover {
+            background-color: grey;
+        }
+
+        body.dark-mode .link-underline {
+            background-color: grey;
+        }
+
+        body.dark-mode .link-underline {
+            background-color: grey;
+        }
+
+        .toggle-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: #444;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .toggle-button:hover {
+            background-color: #666;
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -93,18 +137,31 @@
     </script>
 </head>
 <body>
+    <div class="toggle-button" id="toggleButton"></div>
     <div class="content-container">
         <p id="saudadiv"></p>
         
         <!-- Presentation text -->
-        <p>Sou advogado tributarista com mais de doze anos de experiência, especializado em tributos federais, como IRPJ, CSLL, PIS, COFINS e IPI. Represento empresas líderes nos setores automotivo, de bebidas, sucroalcooleiro e de importações, envolvendo casos de alta relevância financeira e jurídica. Minha atuação se estende à defesa de clientes perante a Receita Federal, o CARF, o Tribunal Regional Federal e outros tribunais superiores.</p>
+        <p>Sou advogado tributarista com mais de doze anos de experiência, especializado em tributos federais, como IRPJ, CSLL, PIS, COFINS e IPI.</p>
         
-        <p>Para mais informações sobre minha carreira e publicações, acesse o site da <a href="http://advds.com.br" target="_blank" rel="noreferrer noopener">Advocacia Dias de Souza</a>, onde coordeno a equipe de contencioso tributário em primeira e segunda instância. Caso deseje entrar em contato, envie um <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#114;&#99;&#105;&#111;&#46;&#109;&#97;&#114;&#111;&#110;&#64;&#109;&#97;&#114;&#99;&#105;&#111;&#109;&#97;&#114;&#111;&#110;&#46;&#99;&#111;&#109;&#46;&#98;&#114;">e-mail</a> ou conecte-se comigo no <a href="http://www.linkedin.com/in/marciomaron" target="_blank" rel="noreferrer noopener">LinkedIn</a>.</p>
+        <p>Represento empresas líderes nos setores automotivo, de bebidas, sucroalcooleiro e de importações, em casos de elevada relevância financeira e jurídica.</p>
+        
+        <p>Minha atuação inclui a defesa de clientes perante a Receita Federal, o CARF, o Tribunal Regional Federal e outros tribunais superiores.</p>
+        
+        <p>Para mais informações sobre minha carreira e publicações, acesse o site da <a href="http://advds.com.br" target="_blank" rel="noreferrer noopener">Advocacia Dias de Souza</a>, onde coordeno a equipe de contencioso tributário em primeira e segunda instâncias.</p>
+        
+        <p>Caso deseje entrar em contato, envie um <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#114;&#99;&#105;&#111;&#46;&#109;&#97;&#114;&#111;&#110;&#64;&#109;&#97;&#114;&#99;&#105;&#111;&#109;&#97;&#114;&#111;&#110;&#46;&#99;&#111;&#109;&#46;&#98;&#114;">e-mail</a> ou conecte-se comigo no <a href="http://www.linkedin.com/in/marciomaron" target="_blank" rel="noreferrer noopener">LinkedIn</a>.</p>
         
         <p class="signature">Márcio Maron</p>
     </div>
 
     <script src="js/greetings.js"></script>
     <script src="js/articles.js"></script>
+    <script>
+        const toggleButton = document.getElementById('toggleButton');
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
 </body>
 </html> 
