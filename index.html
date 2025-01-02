@@ -32,28 +32,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+    <!-- <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'"> -->
     <style>
         /* Retained unique styles or additional styles can go here */
-        
-        /* Loading Screen Styles */
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* Ensure it is on top of other content */
-        }
-
-        #loading-screen h1 {
-            font-family: 'Inter', sans-serif;
-            color: #444; /* Loading text color */
-        }
     </style>
     <script type="application/ld+json">
     {
@@ -76,7 +57,7 @@
         "Reforma Tributária",
         "IBS",
         "CBS",
-        "IS"
+        "IS",
       ],
       "memberOf": {
         "@type": "Organization",
@@ -92,11 +73,6 @@
     </script>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <h1>Loading...</h1>
-    </div>
-
     <div class="toggle-button" id="toggleButton"></div>
     <div class="content-container">
         <p id="saudadiv"></p>
@@ -174,13 +150,6 @@
             }, 500); // Match the duration of the fade-out animation
             isPopupVisible = false; // Set the state to hidden
         }
-    </script>
-
-    <script>
-        // Hide the loading screen once the page is fully loaded
-        window.onload = function() {
-            document.getElementById('loading-screen').style.display = 'none';
-        };
     </script>
 </body>
 </html> 
