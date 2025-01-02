@@ -58,6 +58,9 @@ body.dark-mode .link-underline {
 
 .content-container {
     max-width: 650px;
+    padding: 20px;
+    margin-top: 20px;
+    /*
     position: fixed;
     top: 50%;
     left: 50%;
@@ -65,6 +68,7 @@ body.dark-mode .link-underline {
     padding: 0 20px;
     width: calc(100% - 40px);
     overflow: visible;
+    */
 }
 
 /* Typography */
@@ -94,7 +98,7 @@ a:hover {
     background-image: linear-gradient(var(--link-hover), var(--link-hover));
 }
 
-/* Responsive */
+/* Responsive 
 @media (max-width: 782px) {
     .content-container {
         padding: 20px;
@@ -109,6 +113,7 @@ a:hover {
         justify-content: flex-start;
     }
 }
+*/
 
 /* Signature */
 .signature {
