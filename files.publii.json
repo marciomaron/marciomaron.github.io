@@ -2,7 +2,7 @@
     {
         "path": "404.html",
         "type": "file",
-        "md5": "21dd0b4a0fdac298aa50018f9637cb20"
+        "md5": "0c6c954b850f79e5d99b7381ff70bccf"
     },
     {
         "path": "assets",
@@ -27,7 +27,7 @@
     {
         "path": "/assets/css/style.css",
         "type": "file",
-        "md5": "9fbd2a1aa3ab301b8ecb95ce1fda8247"
+        "md5": "dd8be09427d213c3777260e61e20bd2a"
     },
     {
         "path": "assets/dynamic",
@@ -102,12 +102,12 @@
     {
         "path": "/authors/marcio-maron/index.html",
         "type": "file",
-        "md5": "de24d26cd6e93dbf461549b6a5e30cc7"
+        "md5": "982ccf9bcf3b33d29dc7b9e8e15a259d"
     },
     {
         "path": "devedor-contumaz-na-lc-2252026-por-que-creditos-sob-contencioso-administrativo-nao-podem-caracterizar-inadimplencia.html",
         "type": "file",
-        "md5": "910d333b4b94d248d38d456205b3490e"
+        "md5": "f05b839e8d53d72b383fcf690042249c"
     },
     {
         "path": "feed.json",
@@ -122,7 +122,7 @@
     {
         "path": "index.html",
         "type": "file",
-        "md5": "7b339ddda2235f2ec07abcd7f8814983"
+        "md5": "83a603a09498be2e709dbeb1224e70d8"
     },
     {
         "path": "robots.txt",
@@ -147,6 +147,6 @@
     {
         "path": "/tags/index.html",
         "type": "file",
-        "md5": "7b26f198832682bb1136451261f186e3"
+        "md5": "493dd350ce35ed14560648a1a7466114"
     }
 ]
