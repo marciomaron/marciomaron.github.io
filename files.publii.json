@@ -2,7 +2,7 @@
     {
         "path": "404.html",
         "type": "file",
-        "md5": "991774fdbd20fd3edd0119e2e3388753"
+        "md5": "21dd0b4a0fdac298aa50018f9637cb20"
     },
     {
         "path": "assets",
@@ -27,7 +27,7 @@
     {
         "path": "/assets/css/style.css",
         "type": "file",
-        "md5": "d0773b2bab53754b96a9ec255ebc997e"
+        "md5": "9fbd2a1aa3ab301b8ecb95ce1fda8247"
     },
     {
         "path": "assets/dynamic",
@@ -53,21 +53,6 @@
         "path": "/assets/dynamic/fonts/playfairdisplay/playfairdisplay.woff2",
         "type": "file",
         "md5": "dbdcfa377ff571dda8609a3d6672cc15"
-    },
-    {
-        "path": "assets/dynamic/fonts/publicsans",
-        "type": "directory",
-        "md5": false
-    },
-    {
-        "path": "/assets/dynamic/fonts/publicsans/publicsans-italic.woff2",
-        "type": "file",
-        "md5": "ff6677d277c18333083616765ece3e4f"
-    },
-    {
-        "path": "/assets/dynamic/fonts/publicsans/publicsans.woff2",
-        "type": "file",
-        "md5": "ce5051af671530872721c0304dcc062e"
     },
     {
         "path": "assets/js",
@@ -117,12 +102,12 @@
     {
         "path": "/authors/marcio-maron/index.html",
         "type": "file",
-        "md5": "62b558044273114e850803e520d05a31"
+        "md5": "de24d26cd6e93dbf461549b6a5e30cc7"
     },
     {
         "path": "devedor-contumaz-na-lc-2252026-por-que-creditos-sob-contencioso-administrativo-nao-podem-caracterizar-inadimplencia.html",
         "type": "file",
-        "md5": "8eaf31c1d05de619d1875487f2cb1cc3"
+        "md5": "910d333b4b94d248d38d456205b3490e"
     },
     {
         "path": "feed.json",
@@ -137,7 +122,7 @@
     {
         "path": "index.html",
         "type": "file",
-        "md5": "7aaf8c614a159bd3844ac5460c0a9761"
+        "md5": "7b339ddda2235f2ec07abcd7f8814983"
     },
     {
         "path": "robots.txt",
@@ -162,6 +147,6 @@
     {
         "path": "/tags/index.html",
         "type": "file",
-        "md5": "0f1d0c212ffbdd2579a5f66b3dd63135"
+        "md5": "7b26f198832682bb1136451261f186e3"
     }
 ]
