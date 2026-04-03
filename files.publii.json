@@ -2,7 +2,7 @@
     {
         "path": "404.html",
         "type": "file",
-        "md5": "98cc12b78e5d83414ad1d16aab8631a4"
+        "md5": "991774fdbd20fd3edd0119e2e3388753"
     },
     {
         "path": "assets",
@@ -27,7 +27,7 @@
     {
         "path": "/assets/css/style.css",
         "type": "file",
-        "md5": "2c0b970ba17cb4c19ecd38b6c08cf4ef"
+        "md5": "d0773b2bab53754b96a9ec255ebc997e"
     },
     {
         "path": "assets/dynamic",
@@ -38,21 +38,6 @@
         "path": "assets/dynamic/fonts",
         "type": "directory",
         "md5": false
-    },
-    {
-        "path": "assets/dynamic/fonts/adventpro",
-        "type": "directory",
-        "md5": false
-    },
-    {
-        "path": "/assets/dynamic/fonts/adventpro/adventpro-italic.woff2",
-        "type": "file",
-        "md5": "4d8d62b234b5924616f0b92181af4666"
-    },
-    {
-        "path": "/assets/dynamic/fonts/adventpro/adventpro.woff2",
-        "type": "file",
-        "md5": "d972168af4846da95cd20803fd9e9b8b"
     },
     {
         "path": "assets/dynamic/fonts/playfairdisplay",
@@ -68,6 +53,21 @@
         "path": "/assets/dynamic/fonts/playfairdisplay/playfairdisplay.woff2",
         "type": "file",
         "md5": "dbdcfa377ff571dda8609a3d6672cc15"
+    },
+    {
+        "path": "assets/dynamic/fonts/publicsans",
+        "type": "directory",
+        "md5": false
+    },
+    {
+        "path": "/assets/dynamic/fonts/publicsans/publicsans-italic.woff2",
+        "type": "file",
+        "md5": "ff6677d277c18333083616765ece3e4f"
+    },
+    {
+        "path": "/assets/dynamic/fonts/publicsans/publicsans.woff2",
+        "type": "file",
+        "md5": "ce5051af671530872721c0304dcc062e"
     },
     {
         "path": "assets/js",
@@ -117,12 +117,12 @@
     {
         "path": "/authors/marcio-maron/index.html",
         "type": "file",
-        "md5": "84f840feb70aecbef0f449bf2904f536"
+        "md5": "62b558044273114e850803e520d05a31"
     },
     {
         "path": "devedor-contumaz-na-lc-2252026-por-que-creditos-sob-contencioso-administrativo-nao-podem-caracterizar-inadimplencia.html",
         "type": "file",
-        "md5": "341d12dd566fc78b5c45b48cefbb9789"
+        "md5": "8eaf31c1d05de619d1875487f2cb1cc3"
     },
     {
         "path": "feed.json",
@@ -137,7 +137,7 @@
     {
         "path": "index.html",
         "type": "file",
-        "md5": "219ec543f833bc26486fcbcf353bdb22"
+        "md5": "7aaf8c614a159bd3844ac5460c0a9761"
     },
     {
         "path": "robots.txt",
@@ -162,6 +162,6 @@
     {
         "path": "/tags/index.html",
         "type": "file",
-        "md5": "55144b3c54fe3e6c62f2279dbdef880b"
+        "md5": "0f1d0c212ffbdd2579a5f66b3dd63135"
     }
 ]
