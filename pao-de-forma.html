@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pão de Forma Caseiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF7F2;
+    --wheat: #D4A853;
+    --dark-wheat: #A67C35;
+    --crust: #6B3F1A;
+    --bark: #2C1A0E;
+    --mid: #8C6A4A;
+    --light-brown: #C9A87C;
+    --text: #2C1A0E;
+    --muted: #8C7A6A;
+    --done-bg: #EEF5EC;
+    --done-border: #7CB87A;
+    --active-bg: #FDF4E3;
+    --active-border: #D4A853;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 10% 10%, rgba(212,168,83,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 80%, rgba(107,63,26,0.06) 0%, transparent 60%);
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .header::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--wheat);
+    margin: 0 auto 24px;
+    border-radius: 2px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--bark);
+    letter-spacing: -0.5px;
+  }
+
+  .header .subtitle {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  /* MULTIPLIER */
+  .multiplier-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    background: white;
+    border: 1px solid rgba(212,168,83,0.3);
+    border-radius: 100px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 12px rgba(44,26,14,0.06);
+  }
+
+  .multiplier-bar span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mult-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--wheat);
+    background: transparent;
+    color: var(--dark-wheat);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .mult-btn:hover { background: var(--wheat); color: white; }
+
+  .mult-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--bark);
+    min-width: 28px;
+    text-align: center;
+  }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--crust);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(212,168,83,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--wheat);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* INGREDIENTS */
+  .ingredients-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 16px rgba(44,26,14,0.07);
+    border: 1px solid rgba(212,168,83,0.15);
+  }
+
+  .ingredient-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(140,106,74,0.15);
+    gap: 12px;
+  }
+  .ingredient-row:last-child { border-bottom: none; }
+
+  .ing-name {
+    font-size: 0.9rem;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .ing-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark-wheat);
+    white-space: nowrap;
+  }
+
+  .ing-unit {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-left: 3px;
+  }
+
+  /* NOTES BOX */
+  .notes-box {
+    background: #FDF6E9;
+    border-left: 3px solid var(--wheat);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 0.82rem;
+    color: var(--crust);
+    line-height: 1.6;
+  }
+
+  /* STEPS */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .step {
+    background: white;
+    border-radius: 14px;
+    padding: 20px 22px;
+    border: 1.5px solid rgba(212,168,83,0.2);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: rgba(212,168,83,0.2);
+    border-radius: 4px 0 0 4px;
+    transition: background 0.25s;
+  }
+
+  .step:hover { box-shadow: 0 4px 18px rgba(44,26,14,0.09); }
+
+  .step.active {
+    border-color: var(--active-border);
+    background: var(--active-bg);
+  }
+  .step.active::before { background: var(--wheat); }
+
+  .step.done {
+    border-color: var(--done-border);
+    background: var(--done-bg);
+    opacity: 0.85;
+  }
+  .step.done::before { background: var(--done-border); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1.5px solid rgba(212,168,83,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--crust);
+    flex-shrink: 0;
+    transition: all 0.25s;
+  }
+
+  .step.active .step-num {
+    background: var(--wheat);
+    border-color: var(--wheat);
+    color: white;
+  }
+
+  .step.done .step-num {
+    background: var(--done-border);
+    border-color: var(--done-border);
+    color: white;
+  }
+
+  .step.done .step-num::after {
+    content: '✓';
+    font-size: 0.8rem;
+    font-family: sans-serif;
+  }
+  .step.done .step-num-inner { display: none; }
+
+  .step-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--bark);
+    flex: 1;
+  }
+
+  .step-timer-badge {
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: rgba(212,168,83,0.12);
+    border-radius: 20px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+
+  .step-body {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(140,106,74,0.15);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text);
+    display: none;
+  }
+
+  .step.active .step-body,
+  .step.done .step-body {
+    display: block;
+  }
+
+  /* TIMER */
+  .timer-block {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .timer-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--crust);
+    letter-spacing: 2px;
+    min-width: 90px;
+  }
+
+  .timer-display.running { color: var(--dark-wheat); }
+  .timer-display.finished { color: var(--done-border); }
+
+  .timer-btn {
+    padding: 7px 18px;
+    border-radius: 100px;
+    border: 1.5px solid var(--wheat);
+    background: transparent;
+    color: var(--dark-wheat);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .timer-btn:hover { background: var(--wheat); color: white; }
+  .timer-btn.stop { border-color: #c0392b; color: #c0392b; }
+  .timer-btn.stop:hover { background: #c0392b; color: white; }
+  .timer-btn.reset { border-color: var(--muted); color: var(--muted); }
+  .timer-btn.reset:hover { background: var(--muted); color: white; }
+
+  /* MARK DONE */
+  .mark-done-btn {
+    margin-top: 14px;
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: none;
+    background: var(--bark);
+    color: var(--cream);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .mark-done-btn:hover { background: var(--crust); }
+
+  .step.done .mark-done-btn { display: none; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: rgba(212,168,83,0.15);
+    border-radius: 100px;
+    height: 5px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--wheat), var(--dark-wheat));
+    border-radius: 100px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* NUTRITION */
+  .nutrition-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 16px rgba(44,26,14,0.07);
+    border: 1px solid rgba(212,168,83,0.15);
+  }
+
+  .nut-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .nut-item {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .nut-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .nut-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--bark);
+  }
+
+  .nut-item.highlight { background: var(--bark); }
+  .nut-item.highlight .nut-label { color: rgba(245,240,232,0.6); }
+  .nut-item.highlight .nut-value { color: var(--cream); }
+
+  .nut-note {
+    margin-top: 14px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .footer::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: rgba(212,168,83,0.3);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>Pão de Forma Caseiro</h1>
+    <p class="subtitle">Forma 22 × 10 × 9 cm · Com ou sem tampa</p>
+  </div>
+
+  <!-- MULTIPLIER -->
+  <div class="multiplier-bar">
+    <span>Pães</span>
+    <button class="mult-btn" id="dec">−</button>
+    <span class="mult-value" id="multVal">1</span>
+    <button class="mult-btn" id="inc">+</button>
+  </div>
+
+  <!-- INGREDIENTS -->
+  <div class="section-title">Ingredientes</div>
+  <div class="ingredients-card">
+    <div class="ingredient-row">
+      <span class="ing-name">Farinha de trigo (tipo 1)</span>
+      <span class="ing-amount"><span class="ing-q" data-base="300">300</span><span class="ing-unit"> g</span></span>
+    </div>
+    <div class="ingredient-row">
+      <span class="ing-name">Leite morno</span>
+      <span class="ing-amount"><span class="ing-q" data-base="180">180</span><span class="ing-unit"> ml</span></span>
+    </div>
+    <div class="ingredient-row">
+      <span class="ing-name">Manteiga sem sal (temperatura ambiente)</span>
+      <span class="ing-amount"><span class="ing-q" data-base="30">30</span><span class="ing-unit"> g</span></span>
+    </div>
+    <div class="ingredient-row">
+      <span class="ing-name">Açúcar</span>
+      <span class="ing-amount"><span class="ing-q" data-base="25">25</span><span class="ing-unit"> g</span></span>
+    </div>
+    <div class="ingredient-row">
+      <span class="ing-name">Sal</span>
+      <span class="ing-amount"><span class="ing-q" data-base="5">5</span><span class="ing-unit"> g</span></span>
+    </div>
+    <div class="ingredient-row">
+      <span class="ing-name">Fermento biológico seco instantâneo</span>
+      <span class="ing-amount"><span class="ing-q" data-base="5">5</span><span class="ing-unit"> g</span></span>
+    </div>
+    <div class="ingredient-row">
+      <span class="ing-name">Óleo vegetal (para untar)</span>
+      <span class="ing-amount"><span class="ing-q" data-base="1" data-unit="ml" data-ml="true">15</span><span class="ing-unit"> ml</span></span>
+    </div>
+  </div>
+
+  <div class="notes-box">
+    Para a forma com tampa, a massa não deve ultrapassar 2/3 da altura da forma antes de ir ao forno. Sem tampa, aguarde crescer até cerca de 2 cm acima da borda.
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="section-title" style="margin-bottom: 12px;">Preparo</div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
+
+  <!-- STEPS -->
+  <div class="steps-list" id="stepsList">
+
+    <div class="step" data-step="0">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">1</span></div>
+        <span class="step-title">Misturar os secos</span>
+      </div>
+      <div class="step-body">
+        Em uma tigela grande, misture a farinha de trigo, o açúcar, o sal e o fermento biológico seco até homogeneizar.
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="0">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">2</span></div>
+        <span class="step-title">Incorporar os líquidos e sovar</span>
+        <span class="step-timer-badge">10 min</span>
+      </div>
+      <div class="step-body">
+        Acrescente o leite morno aos poucos e misture até formar uma massa. Incorpore a manteiga e sove por 10 minutos na batedeira com gancho (velocidade média) ou 15 minutos à mão, até a massa ficar lisa e elástica.
+        <div class="timer-block" data-seconds="600">
+          <span class="timer-display" id="timer-1">10:00</span>
+          <button class="timer-btn" onclick="startTimer(this, 1)">Iniciar</button>
+          <button class="timer-btn stop" onclick="stopTimer(1)" style="display:none">Pausar</button>
+          <button class="timer-btn reset" onclick="resetTimer(1, 600)">Reiniciar</button>
+        </div>
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="1">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">3</span></div>
+        <span class="step-title">Primeira fermentação</span>
+        <span class="step-timer-badge">~60 min</span>
+      </div>
+      <div class="step-body">
+        Cubra a tigela com filme plástico ou pano úmido. Deixe descansar em local morno até a massa dobrar de volume – cerca de 1 hora.
+        <div class="timer-block" data-seconds="3600">
+          <span class="timer-display" id="timer-2">1:00:00</span>
+          <button class="timer-btn" onclick="startTimer(this, 2)">Iniciar</button>
+          <button class="timer-btn stop" onclick="stopTimer(2)" style="display:none">Pausar</button>
+          <button class="timer-btn reset" onclick="resetTimer(2, 3600)">Reiniciar</button>
+        </div>
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="2">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">4</span></div>
+        <span class="step-title">Modelar</span>
+      </div>
+      <div class="step-body">
+        Retire a massa da tigela e pressione levemente para eliminar o gás. Abra um retângulo com a largura da forma e enrole como rocambole. Coloque na forma untada com a emenda voltada para baixo.
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="3">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="4">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">5</span></div>
+        <span class="step-title">Segunda fermentação</span>
+        <span class="step-timer-badge">~40 min</span>
+      </div>
+      <div class="step-body">
+        Cubra a forma e aguarde a massa crescer até 2 cm abaixo da borda da tampa (com tampa) ou até ultrapassar a borda em 2 cm (sem tampa) – aproximadamente 40 minutos.
+        <div class="timer-block" data-seconds="2400">
+          <span class="timer-display" id="timer-4">40:00</span>
+          <button class="timer-btn" onclick="startTimer(this, 4)">Iniciar</button>
+          <button class="timer-btn stop" onclick="stopTimer(4)" style="display:none">Pausar</button>
+          <button class="timer-btn reset" onclick="resetTimer(4, 2400)">Reiniciar</button>
+        </div>
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="4">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">6</span></div>
+        <span class="step-title">Assar</span>
+        <span class="step-timer-badge">30–35 min · 180 °C</span>
+      </div>
+      <div class="step-body">
+        Feche a tampa da forma, se for usá-la. Asse em forno preaquecido a 180 °C por 30 a 35 minutos. Se optar por assar sem tampa e o topo dourar rápido demais, cubra com papel-alumínio nos últimos 10 minutos.
+        <div class="timer-block" data-seconds="1950">
+          <span class="timer-display" id="timer-5">32:30</span>
+          <button class="timer-btn" onclick="startTimer(this, 5)">Iniciar</button>
+          <button class="timer-btn stop" onclick="stopTimer(5)" style="display:none">Pausar</button>
+          <button class="timer-btn reset" onclick="resetTimer(5, 1950)">Reiniciar</button>
+        </div>
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="5">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6">
+      <div class="step-header">
+        <div class="step-num"><span class="step-num-inner">7</span></div>
+        <span class="step-title">Desenformar e resfriar</span>
+        <span class="step-timer-badge">30 min</span>
+      </div>
+      <div class="step-body">
+        Retire o pão da forma imediatamente após assar. Deixe esfriar sobre uma grade por pelo menos 30 minutos antes de fatiar – cortar ainda quente amassa o miolo.
+        <div class="timer-block" data-seconds="1800">
+          <span class="timer-display" id="timer-6">30:00</span>
+          <button class="timer-btn" onclick="startTimer(this, 6)">Iniciar</button>
+          <button class="timer-btn stop" onclick="stopTimer(6)" style="display:none">Pausar</button>
+          <button class="timer-btn reset" onclick="resetTimer(6, 1800)">Reiniciar</button>
+        </div>
+        <div style="margin-top:10px;">
+          <button class="mark-done-btn" data-step="6">Marcar como concluído →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NUTRITION -->
+  <div class="section-title">Tabela nutricional estimada</div>
+  <div class="nutrition-card">
+    <div style="font-size:0.78rem;color:var(--muted);margin-bottom:14px;letter-spacing:0.06em;text-transform:uppercase;">Porção de 50 g (1 fatia grossa)</div>
+    <div class="nut-grid">
+      <div class="nut-item highlight">
+        <span class="nut-label">Valor energético</span>
+        <span class="nut-value">~130 kcal</span>
+      </div>
+      <div class="nut-item">
+        <span class="nut-label">Carboidratos</span>
+        <span class="nut-value">~22 g</span>
+      </div>
+      <div class="nut-item">
+        <span class="nut-label">Proteínas</span>
+        <span class="nut-value">~4 g</span>
+      </div>
+      <div class="nut-item">
+        <span class="nut-label">Gorduras totais</span>
+        <span class="nut-value">~3 g</span>
+      </div>
+      <div class="nut-item">
+        <span class="nut-label">Gorduras saturadas</span>
+        <span class="nut-value">~1,8 g</span>
+      </div>
+      <div class="nut-item">
+        <span class="nut-label">Fibras</span>
+        <span class="nut-value">~0,8 g</span>
+      </div>
+      <div class="nut-item">
+        <span class="nut-label">Sódio</span>
+        <span class="nut-value">~250 mg</span>
+      </div>
+    </div>
+    <p class="nut-note">Valores estimados com base na composição dos ingredientes (referência TACO). Pão pronto rende ~480–490 g por forma.</p>
+  </div>
+
+  <div class="footer">Receita para forma 22 × 10 × 9 cm</div>
+
+</div>
+
+<script>
+  // --- MULTIPLIER ---
+  let mult = 1;
+  const maxMult = 10;
+
+  document.getElementById('inc').addEventListener('click', () => {
+    if (mult < maxMult) { mult++; updateIngredients(); }
+  });
+  document.getElementById('dec').addEventListener('click', () => {
+    if (mult > 1) { mult--; updateIngredients(); }
+  });
+
+  function updateIngredients() {
+    document.getElementById('multVal').textContent = mult;
+    document.querySelectorAll('.ing-q').forEach(el => {
+      const base = parseFloat(el.dataset.base);
+      const isMl = el.dataset.ml === 'true';
+      const result = base * mult;
+      el.textContent = isMl ? (result).toFixed(0) : result % 1 === 0 ? result : result.toFixed(1);
+    });
+  }
+
+  // --- STEPS ---
+  const steps = document.querySelectorAll('.step');
+  let activeStep = -1;
+
+  steps.forEach((step, i) => {
+    step.addEventListener('click', (e) => {
+      if (e.target.classList.contains('mark-done-btn') ||
+          e.target.classList.contains('timer-btn')) return;
+      if (step.classList.contains('done')) return;
+      if (activeStep === i) {
+        step.classList.remove('active');
+        activeStep = -1;
+      } else {
+        steps.forEach(s => { if (!s.classList.contains('done')) s.classList.remove('active'); });
+        step.classList.add('active');
+        activeStep = i;
+      }
+    });
+  });
+
+  document.querySelectorAll('.mark-done-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const stepIdx = parseInt(btn.dataset.step);
+      const step = document.querySelector(`.step[data-step="${stepIdx}"]`);
+      step.classList.remove('active');
+      step.classList.add('done');
+      updateProgress();
+      // Auto-open next step
+      const next = document.querySelector(`.step[data-step="${stepIdx + 1}"]`);
+      if (next && !next.classList.contains('done')) {
+        steps.forEach(s => { if (!s.classList.contains('done')) s.classList.remove('active'); });
+        next.classList.add('active');
+        activeStep = stepIdx + 1;
+        next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  function updateProgress() {
+    const total = steps.length;
+    const done = document.querySelectorAll('.step.done').length;
+    document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+  }
+
+  // --- TIMERS ---
+  const timers = {};
+
+  function formatTime(s) {
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  }
+
+  function startTimer(btn, id) {
+    if (timers[id] && timers[id].running) return;
+    const display = document.getElementById(`timer-${id}`);
+    const block = btn.closest('.timer-block');
+    const stopBtn = block.querySelector('.stop');
+    btn.style.display = 'none';
+    stopBtn.style.display = '';
+    display.classList.add('running');
+
+    if (!timers[id]) {
+      const secs = parseInt(block.dataset.seconds);
+      timers[id] = { remaining: secs, running: false };
+    }
+    timers[id].running = true;
+    timers[id].interval = setInterval(() => {
+      timers[id].remaining--;
+      display.textContent = formatTime(timers[id].remaining);
+      if (timers[id].remaining <= 0) {
+        clearInterval(timers[id].interval);
+        timers[id].running = false;
+        display.classList.remove('running');
+        display.classList.add('finished');
+        display.textContent = '00:00';
+        stopBtn.style.display = 'none';
+        btn.style.display = '';
+        // Subtle notification
+        if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+      }
+    }, 1000);
+  }
+
+  function stopTimer(id) {
+    if (!timers[id]) return;
+    clearInterval(timers[id].interval);
+    timers[id].running = false;
+    const display = document.getElementById(`timer-${id}`);
+    const block = display.closest('.timer-block');
+    block.querySelector('.stop').style.display = 'none';
+    block.querySelector('.timer-btn:first-of-type').style.display = '';
+    display.classList.remove('running');
+  }
+
+  function resetTimer(id, original) {
+    if (timers[id]) { clearInterval(timers[id].interval); }
+    timers[id] = { remaining: original, running: false };
+    const display = document.getElementById(`timer-${id}`);
+    display.textContent = formatTime(original);
+    display.classList.remove('running', 'finished');
+    const block = display.closest('.timer-block');
+    block.querySelector('.stop').style.display = 'none';
+    block.querySelector('.timer-btn:first-of-type').style.display = '';
+  }
+
+  // Open first step by default
+  steps[0].classList.add('active');
+  activeStep = 0;
+</script>
+</body>
+</html>
