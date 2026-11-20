@@ -18,6 +18,12 @@ const dataAAAAMMDD = z.preprocess(
     ),
 );
 
+// Campo opcional deixado em branco no cabeçalho (ex.: "tribunal:") vale como ausente.
+const vazio = (value: unknown) =>
+  value === null || (typeof value === "string" && value.trim() === "");
+const emBranco = <T extends z.ZodType>(schema: T) =>
+  z.preprocess((value) => (vazio(value) ? undefined : value), schema);
+
 // Temas: aceita um só (tema: carf) ou uma lista (tema: [pis-cofins, carf]).
 const listaDeTemas = z.preprocess(
   (value) => (typeof value === "string" ? [value] : value),
@@ -49,29 +55,43 @@ const artigos = defineCollection({
         .min(1, "Informe a descrição (uma frase com o fato central).")
         .max(320, "A descrição deve ter no máximo 320 caracteres."),
       data: dataAAAAMMDD,
-      atualizado: dataAAAAMMDD.optional(),
+      atualizado: emBranco(dataAAAAMMDD.optional()),
       tema: listaDeTemas,
-      tribunal: z.string().trim().min(1).optional(),
-      // Cada fonte pode ser só o endereço ou "Nome | endereço".
-      fontes: z
-        .array(
-          z.string().transform((valor, ctx) => {
-            const [nome, url] = valor.includes(" | ")
-              ? valor.split(" | ").map((p) => p.trim())
-              : [undefined, valor.trim()];
-            if (!z.url().safeParse(url).success) {
-              ctx.addIssue({
-                code: "custom",
-                message: `Fonte inválida: "${valor}". Use o endereço completo (https://...) ou "Nome | https://...".`,
-              });
-              return z.NEVER;
-            }
-            return { nome, url };
-          }),
-        )
-        .default([]),
-      tipo: z.enum(["analise", "noticia"]).default("analise"),
-      rascunho: z.boolean().default(false),
+      tribunal: emBranco(z.string().trim().min(1).optional()),
+      // Cada fonte pode ser só o endereço ou "Nome | endereço". Linhas em branco são ignoradas.
+      fontes: z.preprocess(
+        (value) =>
+          vazio(value)
+            ? undefined
+            : Array.isArray(value)
+              ? value.filter((item) => !vazio(item))
+              : value,
+        z
+          .array(
+            z.string().transform((valor, ctx) => {
+              const [nome, url] = valor.includes(" | ")
+                ? valor.split(" | ").map((p) => p.trim())
+                : [undefined, valor.trim()];
+              if (!z.url().safeParse(url).success) {
+                ctx.addIssue({
+                  code: "custom",
+                  message: `Fonte inválida: "${valor}". Use o endereço completo (https://...) ou "Nome | https://...".`,
+                });
+                return z.NEVER;
+              }
+              return { nome, url };
+            }),
+          )
+          .default([]),
+      ),
+      tipo: emBranco(
+        z
+          .enum(["analise", "noticia"], {
+            error: "Tipo inválido. Use analise ou noticia.",
+          })
+          .default("analise"),
+      ),
+      rascunho: emBranco(z.boolean().default(false)),
     })
     .transform((d) => ({ ...d, atualizado: d.atualizado ?? d.data }))
     .refine((d) => d.atualizado >= d.data, {

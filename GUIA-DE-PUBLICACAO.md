@@ -34,6 +34,8 @@ Há um atalho para ela em `Documentos/Márcio Maron/marciomaron.com.br`. A pasta
 | `tipo` | não | `analise` (padrão) ou `noticia`. |
 | `rascunho` | não | `true` esconde o artigo do site publicado. |
 
+Os campos que não são obrigatórios podem ser apagados ou deixados em branco (por exemplo, `tribunal:` sem nada depois). Linhas de `fontes` em branco são ignoradas.
+
 ### Temas
 
 Os temas usam identificadores curtos (`reforma-tributaria`, `pis-cofins`, `carf`). O nome que aparece no site fica em `src/lib/taxonomia.ts`. Um tema novo funciona sem cadastro: `lucro-presumido` aparece como "Lucro presumido". Para mudar o nome exibido (por exemplo, `irpj-csll` → "IRPJ e CSLL") ou acrescentar uma descrição, inclua o tema nesse arquivo.
