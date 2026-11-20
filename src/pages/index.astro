@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+import ListaDeArtigos from "../components/ListaDeArtigos.astro";
+import { site, author } from "../config";
+import { getArtigos, temasEmUso, caminhoDoTema } from "../lib/artigos";
+import { nomeDoTema } from "../lib/taxonomia";
+import { grafo, pessoa, siteWeb } from "../lib/jsonld";
+
+const artigos = await getArtigos();
+const temas = temasEmUso(artigos);
+---
+
+<Base title={site.name} description={site.description} jsonLd={grafo(siteWeb(), pessoa())}>
+  <h1 class="home-title">{site.name}</h1>
+  <div class="intro">
+    <p>
+      {author.jobTitle} em {author.city}. Análises e notícias sobre tributos federais, contencioso
+      administrativo e judicial e reforma tributária. <a href="/sobre/">Sobre o autor</a>.
+    </p>
+  </div>
+  <ListaDeArtigos artigos={artigos} />
+  {
+    temas.length > 0 && (
+      <nav class="temas-home" aria-label="Temas">
+        <h2>Temas</h2>
+        <p>
+          {temas.map(([t], i) => (
+            <>
+              {i > 0 && " · "}
+              <a href={caminhoDoTema(t)}>{nomeDoTema(t)}</a>
+            </>
+          ))}
+        </p>
+      </nav>
+    )
+  }
+</Base>

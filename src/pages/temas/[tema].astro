@@ -1,0 +1,38 @@
+---
+import Base from "../../layouts/Base.astro";
+import ListaDeArtigos from "../../components/ListaDeArtigos.astro";
+import { site } from "../../config";
+import { getArtigos, temasEmUso, caminhoDoTema, type Artigo } from "../../lib/artigos";
+import { nomeDoTema, descricaoDoTema } from "../../lib/taxonomia";
+import { grafo, trilha } from "../../lib/jsonld";
+
+export async function getStaticPaths() {
+  const artigos = await getArtigos();
+  return temasEmUso(artigos).map(([tema]) => ({
+    params: { tema },
+    props: { tema, artigos: artigos.filter((a) => a.data.tema.includes(tema)) },
+  }));
+}
+
+const { tema, artigos } = Astro.props as { tema: string; artigos: Artigo[] };
+const nome = nomeDoTema(tema);
+const descricao = descricaoDoTema(tema) ?? `Artigos sobre ${nome} publicados em ${site.name}.`;
+---
+
+<Base
+  title={nome}
+  description={descricao}
+  trail={[{ label: "Temas", href: "/temas/" }, { label: nome }]}
+  jsonLd={grafo(
+    { "@type": "CollectionPage", name: nome, description: descricao, url: `${site.url}${caminhoDoTema(tema)}` },
+    trilha([
+      { nome: "Início", caminho: "/" },
+      { nome: "Temas", caminho: "/temas/" },
+      { nome, caminho: caminhoDoTema(tema) },
+    ]),
+  )}
+>
+  <h1 class="page-title">{nome}</h1>
+  {descricaoDoTema(tema) && <p class="page-lead">{descricaoDoTema(tema)}</p>}
+  <ListaDeArtigos artigos={artigos} />
+</Base>

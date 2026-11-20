@@ -1,0 +1,33 @@
+---
+import { caminhoDoArtigo, diaMes, type Artigo } from "../lib/artigos";
+import { statusOf } from "../lib/publication.mjs";
+
+interface Props {
+  artigos: Artigo[];
+}
+const { artigos } = Astro.props;
+const anos = [...new Set(artigos.map((a) => a.data.data.slice(0, 4)))];
+---
+
+{artigos.length === 0 && <p class="vazio">Ainda não há artigos publicados.</p>}
+{
+  anos.map((ano) => (
+    <section class="year-group" aria-label={`Artigos de ${ano}`}>
+      <h2>{ano}</h2>
+      <ul class="post-list">
+        {artigos
+          .filter((a) => a.data.data.startsWith(ano))
+          .map((a) => {
+            const status = statusOf(a);
+            return (
+              <li>
+                <a href={caminhoDoArtigo(a)}>{a.data.titulo}</a>
+                {status !== "publicado" && <span class="aviso">{status}</span>}
+                <time datetime={a.data.data}>{diaMes(a.data.data)}</time>
+              </li>
+            );
+          })}
+      </ul>
+    </section>
+  ))
+}

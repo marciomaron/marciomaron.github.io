@@ -1,0 +1,148 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { author, site } from "../../config";
+import {
+  getArtigos,
+  caminhoDoArtigo,
+  caminhoDoTema,
+  caminhoDoTribunal,
+  dataPorExtenso,
+  dataHoraBrasilia,
+  urlDoArtigo,
+  type Artigo,
+} from "../../lib/artigos";
+import { statusOf } from "../../lib/publication.mjs";
+import { nomeDoTema } from "../../lib/taxonomia";
+import { grafo, organizacao, pessoa, referenciaAoAutor, trilha } from "../../lib/jsonld";
+
+export async function getStaticPaths() {
+  return (await getArtigos()).map((artigo) => ({ params: { slug: artigo.id }, props: { artigo } }));
+}
+
+const { artigo } = Astro.props as { artigo: Artigo };
+const { Content } = await render(artigo);
+const d = artigo.data;
+const atualizado = d.atualizado !== d.data;
+const status = statusOf(artigo);
+const ogImage = `/og/${artigo.id}.png`;
+const nomesDosTemas = d.tema.map(nomeDoTema);
+
+/** Rótulo legível da fonte: domínio sem "www.". */
+const rotuloDaFonte = (url: string) => {
+  const u = new URL(url);
+  return u.hostname.replace(/^www\./, "") + (u.pathname.length > 1 ? u.pathname : "");
+};
+
+const jsonLd = grafo(
+  {
+    "@type": d.tipo === "noticia" ? "NewsArticle" : "Article",
+    "@id": `${urlDoArtigo(artigo)}#artigo`,
+    headline: d.titulo,
+    description: d.descricao,
+    url: urlDoArtigo(artigo),
+    mainEntityOfPage: urlDoArtigo(artigo),
+    datePublished: dataHoraBrasilia(d.data),
+    dateModified: dataHoraBrasilia(d.atualizado),
+    inLanguage: site.lang,
+    image: [`${site.url}${ogImage}`],
+    author: referenciaAoAutor(),
+    publisher: referenciaAoAutor(),
+    isPartOf: { "@id": `${site.url}/#site` },
+    keywords: nomesDosTemas.join(", "),
+    about: nomesDosTemas.map((name) => ({ "@type": "Thing", name })),
+    ...(d.fontes.length
+      ? {
+          citation: d.fontes.map((f) => ({
+            "@type": "CreativeWork",
+            url: f.url,
+            ...(f.nome ? { name: f.nome } : {}),
+          })),
+        }
+      : {}),
+  },
+  pessoa(),
+  organizacao(),
+  trilha([
+    { nome: "Início", caminho: "/" },
+    { nome: "Artigos", caminho: "/artigos/" },
+    { nome: d.titulo, caminho: caminhoDoArtigo(artigo) },
+  ]),
+);
+---
+
+<Base
+  title={d.titulo}
+  description={d.descricao}
+  trail={[{ label: "Artigos", href: "/artigos/" }, { label: d.titulo }]}
+  ogImage={ogImage}
+  ogType="article"
+  jsonLd={jsonLd}
+  article={{ published: d.data, modified: d.atualizado, tags: nomesDosTemas }}
+>
+  <article>
+    {status !== "publicado" && (
+      <p class="aviso-bloco">
+        Visualização local: este artigo está como <strong>{status}</strong> e não aparece no site
+        publicado.
+      </p>
+    )}
+    <header class="article-header">
+      <h1>{d.titulo}</h1>
+      <p class="byline">
+        <a href="/sobre/" rel="author">{author.name}</a>
+        <span class="oab">{author.oab}</span>
+      </p>
+      <p class="datas">
+        <span>Publicado em <time datetime={d.data}>{dataPorExtenso(d.data)}</time></span>
+        {atualizado && (
+          <span>
+            Atualizado em <time datetime={d.atualizado}>{dataPorExtenso(d.atualizado)}</time>
+          </span>
+        )}
+      </p>
+    </header>
+    <div class="prose" data-pagefind-body>
+      <Content />
+    </div>
+    <footer class="article-footer">
+      {
+        d.fontes.length > 0 && (
+          <section class="fontes" aria-labelledby="fontes-titulo">
+            <h2 id="fontes-titulo">Fontes</h2>
+            <ul>
+              {d.fontes.map((f) => (
+                <li>
+                  <a href={f.url} rel="noopener">
+                    {f.nome ?? rotuloDaFonte(f.url)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+      <p class="taxonomia">
+        <span class="rotulo">Temas</span>
+        {d.tema.map((t, i) => (
+          <>
+            {i > 0 && " · "}
+            <a href={caminhoDoTema(t)} data-pagefind-filter="tema">
+              {nomeDoTema(t)}
+            </a>
+          </>
+        ))}
+        {d.tribunal && (
+          <>
+            <span class="rotulo">Tribunal</span>
+            <a href={caminhoDoTribunal(d.tribunal)}>{d.tribunal}</a>
+          </>
+        )}
+      </p>
+      <p class="assinatura">
+        <a href="/sobre/">{author.name}</a> é {author.jobTitle.toLowerCase()} ({author.oab}) e coordena o
+        contencioso tributário na <a href={author.worksFor.url}>{author.worksFor.name}</a>, em {author.city}.
+      </p>
+    </footer>
+  </article>
+</Base>

@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import Sobre from "../textos/sobre.md";
+import { author, site } from "../config";
+import { getArtigos, caminhoDoArtigo, dataPorExtenso } from "../lib/artigos";
+import { grafo, pessoa, trilha } from "../lib/jsonld";
+
+const recentes = (await getArtigos()).slice(0, 5);
+const descricao = `${author.name}, ${author.jobTitle.toLowerCase()} em ${author.city} (${author.oab}). Contencioso tributário administrativo e judicial em tributos federais e reforma tributária.`;
+---
+
+<Base
+  title="Sobre"
+  description={descricao}
+  trail={[{ label: "Sobre" }]}
+  ogType="profile"
+  jsonLd={grafo(
+    {
+      "@type": "ProfilePage",
+      url: `${site.url}/sobre/`,
+      name: `Sobre ${author.name}`,
+      inLanguage: site.lang,
+      mainEntity: { "@id": author.id },
+    },
+    pessoa(),
+    trilha([{ nome: "Início", caminho: "/" }, { nome: "Sobre", caminho: "/sobre/" }]),
+  )}
+>
+  <h1 class="page-title">{author.name}</h1>
+  <p class="subtitulo">
+    {author.jobTitle} · <span class="oab">{author.oab}</span> · {author.city}/{author.region}
+  </p>
+  <div class="prose"><Sobre /></div>
+  <dl class="ficha">
+    <dt>Inscrição</dt>
+    <dd><span class="oab">{author.oab}</span></dd>
+    <dt>Escritório</dt>
+    <dd><a href={author.worksFor.url}>{author.worksFor.name}</a></dd>
+    <dt>Contato</dt>
+    <dd>
+      <a href={author.whatsapp}>WhatsApp</a> · <a href={`mailto:${author.email}`}>{author.email}</a> ·
+      <a href={author.linkedin} rel="me">LinkedIn</a>
+    </dd>
+  </dl>
+  {
+    recentes.length > 0 && (
+      <section class="recentes">
+        <h2 class="section-title">Artigos recentes</h2>
+        <ul class="post-list">
+          {recentes.map((a) => (
+            <li>
+              <a href={caminhoDoArtigo(a)}>{a.data.titulo}</a>
+              <time datetime={a.data.data}>{dataPorExtenso(a.data.data)}</time>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>

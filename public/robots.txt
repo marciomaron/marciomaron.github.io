@@ -1,0 +1,33 @@
+# Política de rastreamento de marciomaron.com.br
+# Todo o conteúdo é público. Os grupos abaixo deixam a política explícita
+# e facilitam mudanças futuras (trocar "Allow: /" por "Disallow: /").
+
+# Buscadores tradicionais
+User-agent: Googlebot
+User-agent: Bingbot
+Allow: /
+
+# Robôs de busca e citação das IAs (bloquear elimina a chance de citação)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+Allow: /
+
+# Robôs de treinamento de modelos de IA (liberados por opção do autor;
+# para bloquear, troque "Allow: /" por "Disallow: /" neste grupo)
+User-agent: GPTBot
+User-agent: Google-Extended
+User-agent: ClaudeBot
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+
+# Demais robôs
+User-agent: *
+Allow: /
+Disallow: /busca/
+
+Sitemap: https://marciomaron.com.br/sitemap.xml

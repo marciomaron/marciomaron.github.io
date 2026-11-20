@@ -1,0 +1,45 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getArtigos, temasEmUso, tribunaisEmUso, caminhoDoTema } from "../../lib/artigos";
+import { nomeDoTema, descricaoDoTema } from "../../lib/taxonomia";
+import { grafo, trilha } from "../../lib/jsonld";
+
+const artigos = await getArtigos();
+const temas = temasEmUso(artigos);
+const tribunais = tribunaisEmUso(artigos);
+const plural = (n: number) => (n === 1 ? "1 artigo" : `${n} artigos`);
+---
+
+<Base
+  title="Temas"
+  description="Artigos organizados por tema e por tribunal: reforma tributária, CARF, PIS/COFINS, IPI e outros."
+  trail={[{ label: "Temas" }]}
+  jsonLd={grafo(trilha([{ nome: "Início", caminho: "/" }, { nome: "Temas", caminho: "/temas/" }]))}
+>
+  <h1 class="page-title">Temas</h1>
+  <ul class="term-list">
+    {
+      temas.map(([t, n]) => (
+        <li>
+          <a href={caminhoDoTema(t)}>{nomeDoTema(t)}</a>
+          <span class="contagem">{plural(n)}</span>
+          {descricaoDoTema(t) && <p>{descricaoDoTema(t)}</p>}
+        </li>
+      ))
+    }
+  </ul>
+  {
+    tribunais.length > 0 && (
+      <>
+        <h2 class="section-title">Tribunais</h2>
+        <ul class="term-list">
+          {tribunais.map(([slug, nome]) => (
+            <li>
+              <a href={`/tribunais/${slug}/`}>{nome}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</Base>

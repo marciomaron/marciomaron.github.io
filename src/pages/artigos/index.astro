@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+import ListaDeArtigos from "../../components/ListaDeArtigos.astro";
+import { site } from "../../config";
+import { getArtigos } from "../../lib/artigos";
+import { grafo, trilha } from "../../lib/jsonld";
+
+const artigos = await getArtigos();
+---
+
+<Base
+  title="Artigos"
+  description={`Todos os artigos de ${site.name}, do mais recente ao mais antigo.`}
+  trail={[{ label: "Artigos" }]}
+  jsonLd={grafo(trilha([{ nome: "Início", caminho: "/" }, { nome: "Artigos", caminho: "/artigos/" }]))}
+>
+  <h1 class="page-title">Artigos</h1>
+  <ListaDeArtigos artigos={artigos} />
+</Base>

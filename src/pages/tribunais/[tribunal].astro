@@ -1,0 +1,39 @@
+---
+import Base from "../../layouts/Base.astro";
+import ListaDeArtigos from "../../components/ListaDeArtigos.astro";
+import { site } from "../../config";
+import { getArtigos, tribunaisEmUso, type Artigo } from "../../lib/artigos";
+import { slugDoTribunal } from "../../lib/taxonomia";
+import { grafo, trilha } from "../../lib/jsonld";
+
+export async function getStaticPaths() {
+  const artigos = await getArtigos();
+  return tribunaisEmUso(artigos).map(([slug, nome]) => ({
+    params: { tribunal: slug },
+    props: {
+      nome,
+      slug,
+      artigos: artigos.filter((a) => a.data.tribunal && slugDoTribunal(a.data.tribunal) === slug),
+    },
+  }));
+}
+
+const { nome, slug, artigos } = Astro.props as { nome: string; slug: string; artigos: Artigo[] };
+const descricao = `Artigos sobre decisões do ${nome} publicados em ${site.name}.`;
+---
+
+<Base
+  title={nome}
+  description={descricao}
+  trail={[{ label: "Temas", href: "/temas/" }, { label: nome }]}
+  jsonLd={grafo(
+    trilha([
+      { nome: "Início", caminho: "/" },
+      { nome: "Temas", caminho: "/temas/" },
+      { nome, caminho: `/tribunais/${slug}/` },
+    ]),
+  )}
+>
+  <h1 class="page-title">{nome}</h1>
+  <ListaDeArtigos artigos={artigos} />
+</Base>

@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../config";
+---
+
+<Base
+  title="Busca"
+  description={`Pesquise nos artigos de ${site.name}.`}
+  trail={[{ label: "Busca" }]}
+  noindex
+>
+  <h1 class="page-title">Busca</h1>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <div id="busca" class="busca"></div>
+  <noscript><p>A busca precisa de JavaScript. Os artigos estão listados na <a href="/">página inicial</a>.</p></noscript>
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", function () {
+      if (!window.PagefindUI) {
+        document.getElementById("busca").innerHTML =
+          "<p>O índice de busca é gerado na compilação (npm run build) e não existe na visualização local.</p>";
+        return;
+      }
+      var ui = new PagefindUI({
+        element: "#busca",
+        showSubResults: true,
+        showImages: false,
+        resetStyles: false,
+        translations: { placeholder: "Pesquisar nos artigos", zero_results: "Nenhum resultado para [SEARCH_TERM]" },
+      });
+      var q = new URLSearchParams(location.search).get("q");
+      if (q) ui.triggerSearch(q);
+    });
+  </script>
+</Base>

@@ -1,0 +1,15 @@
+node_modules/
+.pi/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
+*.log
+.vercel/
+.netlify/
+
+# Lista temporária do IndexNow
+indexnow-urls.txt
