@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import ListaDeArtigos from "../components/ListaDeArtigos.astro";
+import Perfil from "../textos/perfil.md";
 import { site, author } from "../config";
 import { getArtigos, temasEmUso, caminhoDoTema } from "../lib/artigos";
 import { nomeDoTema } from "../lib/taxonomia";
@@ -10,14 +11,27 @@ const artigos = await getArtigos();
 const temas = temasEmUso(artigos);
 ---
 
-<Base title={site.name} description={site.description} jsonLd={grafo(siteWeb(), pessoa())}>
+<Base
+  title={site.name}
+  description={site.description}
+  ogType="profile"
+  jsonLd={grafo(
+    siteWeb(),
+    {
+      "@type": "ProfilePage",
+      "@id": `${site.url}/#perfil`,
+      url: `${site.url}/`,
+      name: `${author.name} – ${author.jobTitle}`,
+      inLanguage: site.lang,
+      mainEntity: { "@id": author.id },
+    },
+    pessoa(),
+  )}
+>
   <h1 class="home-title">{site.name}</h1>
-  <div class="intro">
-    <p>
-      {author.jobTitle} em {author.city}. Análises e notícias sobre tributos federais, contencioso
-      administrativo e judicial e reforma tributária. <a href="/sobre/">Sobre o autor</a>.
-    </p>
-  </div>
+  <div class="prose perfil"><Perfil /></div>
+
+  <h2 class="section-title">Artigos</h2>
   <ListaDeArtigos artigos={artigos} />
   {
     temas.length > 0 && (

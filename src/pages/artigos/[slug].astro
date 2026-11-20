@@ -90,8 +90,7 @@ const jsonLd = grafo(
     <header class="article-header">
       <h1>{d.titulo}</h1>
       <p class="byline">
-        <a href="/sobre/" rel="author">{author.name}</a>
-        <span class="oab">{author.oab}</span>
+        <a href="/" rel="author">{author.name}</a>
       </p>
       <p class="datas">
         <span>Publicado em <time datetime={d.data}>{dataPorExtenso(d.data)}</time></span>
@@ -140,7 +139,7 @@ const jsonLd = grafo(
         )}
       </p>
       <p class="assinatura">
-        <a href="/sobre/">{author.name}</a> é {author.jobTitle.toLowerCase()} ({author.oab}) e coordena o
+        <a href="/">{author.name}</a> é {author.jobTitle.toLowerCase()} e coordena o
         contencioso tributário na <a href={author.worksFor.url}>{author.worksFor.name}</a>, em {author.city}.
       </p>
     </footer>

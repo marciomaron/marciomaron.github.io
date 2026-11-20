@@ -14,4 +14,4 @@ npm run dev      # visualização local em http://localhost:4321
 npm run build    # compila o site em dist/
 ```
 
-Fonte Source Serif 4 (Adobe, SIL Open Font License), em subconjunto latino com versaletes, hospedada em `public/fonts/`.
+Títulos em Playfair Display (SIL Open Font License), hospedada em `public/fonts/`; texto na fonte do sistema.

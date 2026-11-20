@@ -15,7 +15,7 @@ export async function GET() {
 
   const urls: { caminho: string; lastmod?: string }[] = [
     { caminho: "/", lastmod: maisRecente(artigos) },
-    { caminho: "/sobre/" },
+    { caminho: "/contato/" },
     { caminho: "/artigos/", lastmod: maisRecente(artigos) },
     { caminho: "/temas/", lastmod: maisRecente(artigos) },
     ...artigos.map((a) => ({ caminho: caminhoDoArtigo(a), lastmod: a.data.atualizado })),

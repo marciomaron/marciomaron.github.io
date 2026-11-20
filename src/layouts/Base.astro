@@ -50,7 +50,7 @@ const gaId = import.meta.env.PROD ? site.googleAnalyticsId : "";
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="author" content={author.name} />
-    <link rel="preload" href="/fonts/source-serif-4-roman.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${site.name} – RSS`} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap.xml" />
@@ -106,11 +106,11 @@ const gaId = import.meta.env.PROD ? site.googleAnalyticsId : "";
       <main id="conteudo"><slot /></main>
       <footer class="site-footer">
         <p>
-          <a href="/sobre/">{author.name}</a> · {author.jobTitle} · <span class="oab">{author.oab}</span>
+          <a href="/">{author.name}</a> · {author.jobTitle} · {author.city}
         </p>
         <p>
-          <a href={author.linkedin} rel="me">LinkedIn</a> · <a href={`mailto:${author.email}`}>E-mail</a> ·
-          <a href={author.whatsapp}>WhatsApp</a> · <a href="/rss.xml">RSS</a>
+          <a href={author.whatsapp}>WhatsApp</a> · <a href={`mailto:${author.email}`}>E-mail</a> ·
+          <a href={author.linkedin} rel="me">LinkedIn</a> · <a href="/contato/">Contato</a> · <a href="/rss.xml">RSS</a>
         </p>
       </footer>
     </div>

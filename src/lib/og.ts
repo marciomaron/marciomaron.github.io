@@ -1,20 +1,19 @@
 // Cartão de compartilhamento (Open Graph, 1200×630) com o título composto em
-// Source Serif 4, gerado na compilação.
+// Playfair Display, a fonte dos títulos do site, gerado na compilação.
 import { readFile } from "node:fs/promises";
-import { createRequire } from "node:module";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import { author, site } from "../config";
 
-const require = createRequire(import.meta.url);
+// O Satori não lê WOFF2; estas são instâncias TTF da mesma fonte do site.
 const fonte = (peso: number) =>
-  readFile(require.resolve(`@fontsource/source-serif-4/files/source-serif-4-latin-${peso}-normal.woff`));
+  readFile(new URL(`../assets/og/playfair-display-${peso}.ttf`, `file://${process.cwd()}/src/lib/`));
 
 let fontes: Promise<{ name: string; data: Buffer; weight: 400 | 600; style: "normal" }[]> | undefined;
 const carregarFontes = () =>
   (fontes ??= Promise.all([fonte(400), fonte(600)]).then(([regular, semibold]) => [
-    { name: "Source Serif 4", data: regular, weight: 400, style: "normal" },
-    { name: "Source Serif 4", data: semibold, weight: 600, style: "normal" },
+    { name: "Playfair Display", data: regular, weight: 400, style: "normal" },
+    { name: "Playfair Display", data: semibold, weight: 600, style: "normal" },
   ]));
 
 const el = (type: string, style: Record<string, unknown>, children?: unknown) => ({
@@ -22,7 +21,7 @@ const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
   props: { style, children },
 });
 
-export async function cartaoOg(titulo: string, rodape = `${author.jobTitle} · ${author.oab}`) {
+export async function cartaoOg(titulo: string, rodape = `${author.jobTitle} · ${author.city}`) {
   const tamanho = titulo.length > 110 ? 54 : titulo.length > 70 ? 62 : titulo.length > 40 ? 72 : 84;
   const LARGURA = 1200 - 2 * 84;
   const arvore = el(
@@ -37,13 +36,13 @@ export async function cartaoOg(titulo: string, rodape = `${author.jobTitle} · $
       padding: "64px 84px 56px",
       background: "#fbfaf7",
       color: "#1c1b19",
-      fontFamily: "Source Serif 4",
+      fontFamily: "Playfair Display",
     },
     [
       el("div", { display: "flex", width: LARGURA, fontSize: 26, letterSpacing: 4, color: "#6b6862" }, site.name.toUpperCase()),
       el(
         "div",
-        { display: "flex", width: LARGURA, fontSize: tamanho, fontWeight: 600, lineHeight: 1.12 },
+        { display: "flex", width: LARGURA, fontSize: tamanho, fontWeight: 400, lineHeight: 1.15 },
         titulo,
       ),
       el(

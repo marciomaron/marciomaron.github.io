@@ -110,7 +110,7 @@ Abra http://localhost:4321 no navegador. A página se atualiza a cada vez que vo
 
 ## 6. O que o site gera sozinho
 
-- Página do artigo, com autor, OAB, datas, fontes e temas.
+- Página do artigo, com autor, datas, fontes e temas.
 - Listas por ano (início), por tema (`/temas/...`) e por tribunal (`/tribunais/...`).
 - RSS em `/rss.xml` (e no endereço antigo `/feed.xml`), com o texto integral.
 - Sitemap em `/sitemap.xml`, com as datas de atualização.
@@ -124,8 +124,9 @@ Abra http://localhost:4321 no navegador. A página se atualiza a cada vez que vo
 | O quê | Arquivo |
 | --- | --- |
 | Nome do site, descrição, menu, Google Analytics | `src/config.ts` |
-| Dados do autor, OAB, contatos, escritório | `src/config.ts` |
-| Texto da página Sobre | `src/textos/sobre.md` |
+| Dados do autor, contatos, endereço do escritório | `src/config.ts` |
+| Perfil (texto da página inicial) | `src/textos/perfil.md` |
+| Página de contato | `src/pages/contato.astro` |
 | Nomes e descrições dos temas | `src/lib/taxonomia.ts` |
 | Cores, tamanhos, espaçamentos | `src/styles/global.css` |
 | Robôs de busca e de IA | `public/robots.txt` |

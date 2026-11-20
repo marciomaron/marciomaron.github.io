@@ -8,7 +8,7 @@ export async function GET() {
 
 > ${site.description}
 
-Autor: ${author.name}, ${author.jobTitle.toLowerCase()} (${author.oab}), ${author.worksFor.name}, ${author.city}/${author.region}. Perfil: ${author.url}
+Autor: ${author.name}, ${author.jobTitle.toLowerCase()}, ${author.worksFor.name}, ${author.city}/${author.region}. Perfil: ${author.url}
 
 ## Artigos
 

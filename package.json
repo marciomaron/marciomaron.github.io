@@ -20,8 +20,6 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "@fontsource-variable/source-serif-4": "^5.3.1",
-    "@fontsource/source-serif-4": "^5.3.1",
     "pagefind": "^1.6.0",
     "typescript": "^6.0.3"
   }

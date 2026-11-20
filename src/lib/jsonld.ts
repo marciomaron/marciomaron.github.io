@@ -16,20 +16,23 @@ export const pessoa = () => ({
     addressRegion: author.region,
     addressCountry: "BR",
   },
-  hasCredential: {
-    "@type": "EducationalOccupationalCredential",
-    credentialCategory: "Inscrição profissional de advogado",
-    name: author.oab,
-    recognizedBy: { "@type": "Organization", name: author.oabSeccional },
-  },
   worksFor: organizacao(),
 });
 
 export const organizacao = () => ({
-  "@type": "Organization",
+  "@type": "LegalService",
   "@id": `${author.worksFor.url}#organizacao`,
   name: author.worksFor.name,
   url: author.worksFor.url,
+  telephone: author.worksFor.telefone,
+  email: author.worksFor.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: author.worksFor.endereco,
+    addressLocality: `${author.worksFor.bairro}, ${author.worksFor.cidade}`,
+    addressRegion: author.worksFor.uf,
+    addressCountry: "BR",
+  },
 });
 
 export const referenciaAoAutor = () => ({ "@type": "Person", "@id": author.id, name: author.name, url: author.url });

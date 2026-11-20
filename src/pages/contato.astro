@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro";
+import { author, site } from "../config";
+import { grafo, organizacao, pessoa, trilha } from "../lib/jsonld";
+
+const e = author.worksFor;
+const descricao = `Contato de ${author.name}, ${author.jobTitle.toLowerCase()} em ${author.city}, e da ${e.name}.`;
+---
+
+<Base
+  title="Contato"
+  description={descricao}
+  trail={[{ label: "Contato" }]}
+  jsonLd={grafo(
+    {
+      "@type": "ContactPage",
+      url: `${site.url}/contato/`,
+      name: "Contato",
+      inLanguage: site.lang,
+      about: { "@id": author.id },
+    },
+    pessoa(),
+    organizacao(),
+    trilha([
+      { nome: "Início", caminho: "/" },
+      { nome: "Contato", caminho: "/contato/" },
+    ]),
+  )}
+>
+  <h1 class="page-title">Contato</h1>
+
+  <section class="contato" aria-labelledby="contato-autor">
+    <h2 id="contato-autor" class="section-title">{author.name}</h2>
+    <ul class="contato-lista">
+      <li><span class="rotulo">WhatsApp</span> <a href={author.whatsapp}>Enviar mensagem</a></li>
+      <li><span class="rotulo">E-mail</span> <a href={`mailto:${author.email}`}>{author.email}</a></li>
+      <li><span class="rotulo">LinkedIn</span> <a href={author.linkedin} rel="me">linkedin.com/in/marciomaron</a></li>
+    </ul>
+  </section>
+
+  <section class="contato" aria-labelledby="contato-escritorio">
+    <h2 id="contato-escritorio" class="section-title">{e.name}</h2>
+    <address class="contato-lista">
+      <p><span class="rotulo">Endereço</span> {e.endereco}<br />{e.bairro}, {e.cidade}/{e.uf}</p>
+      <p><span class="rotulo">Telefone</span> <a href={e.telefoneLink}>{e.telefone}</a></p>
+      <p><span class="rotulo">E-mail</span> <a href={`mailto:${e.email}`}>{e.email}</a></p>
+      <p><span class="rotulo">Site</span> <a href={e.url}>advds.com.br</a></p>
+    </address>
+  </section>
+</Base>

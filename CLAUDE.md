@@ -1,6 +1,6 @@
 # Contexto para o Claude Code
 
-Blog de notícias e análises tributárias de Márcio Maron (advogado tributarista, OAB/DF 32.631, Advocacia Dias de Souza). Público jurídico, texto em português do Brasil. O autor não é programador: explique em linguagem simples e prefira mudanças pequenas.
+Blog de notícias e análises tributárias de Márcio Maron (advogado tributarista, Advocacia Dias de Souza). O autor pediu que o número da OAB não apareça no site. Público jurídico, texto em português do Brasil. O autor não é programador: explique em linguagem simples e prefira mudanças pequenas.
 
 ## Arquitetura
 
@@ -11,7 +11,8 @@ Blog de notícias e análises tributárias de Márcio Maron (advogado tributaris
 - Siglas em versaletes: plugin HAST `src/lib/siglas.mjs` (envolve maiúsculas em `<abbr class="sigla">`, ignora numerais romanos válidos e código).
 - SEO: JSON-LD em `src/lib/jsonld.ts`; sitemap próprio em `src/pages/sitemap.xml.ts` (com `lastmod` de `atualizado`); RSS em `/rss.xml` e `/feed.xml`; `llms.txt`; cartão OG via Satori + resvg (`src/lib/og.ts`, `src/pages/og/[slug].png.ts`); IndexNow em `scripts/indexnow.mjs` (compara o sitemap novo com o do ar).
 - Busca: Pagefind roda após o `astro build` (`npm run build`). Só indexa `[data-pagefind-body]` (corpo dos artigos).
-- Fontes: Source Serif 4 variável (wght + opsz), subconjunto latino gerado com `pyftsubset` a partir do release oficial da Adobe, mantendo `smcp`, `c2sc`, `tnum`, `lnum`, `onum`. Os subconjuntos do Fontsource não têm versaletes. Fontes reserva com `size-adjust` em `global.css`.
+- Fontes (escolha do autor, igual ao site anterior): títulos em Playfair Display (`public/fonts/playfair-display.woff2`, variável 400–900, com reserva Georgia ajustada por `size-adjust`); texto na fonte do sistema, peso 300, entrelinha 1,7. O autor rejeitou Source Serif 4. O cartão OG usa instâncias TTF da Playfair em `src/assets/og/` (o Satori não lê WOFF2).
+- Perfil do autor na página inicial (`src/textos/perfil.md`); não há página Sobre. Página `/contato/` com os links do autor e os dados da Advocacia Dias de Souza.
 - Redirecionamentos de endereços antigos (site Publii) em `public/*.html` com meta refresh (GitHub Pages não faz 301).
 
 ## Cuidados
