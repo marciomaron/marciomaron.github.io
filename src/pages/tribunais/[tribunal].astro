@@ -28,7 +28,7 @@ const descricao = `Artigos sobre decisões do ${nome} publicados em ${site.name}
   trail={[{ label: "Temas", href: "/temas/" }, { label: nome }]}
   jsonLd={grafo(
     trilha([
-      { nome: "Início", caminho: "/" },
+      { nome: "Principal", caminho: "/" },
       { nome: "Temas", caminho: "/temas/" },
       { nome, caminho: `/tribunais/${slug}/` },
     ]),

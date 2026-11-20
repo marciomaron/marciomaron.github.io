@@ -47,7 +47,7 @@ export const siteWeb = () => ({
   publisher: referenciaAoAutor(),
 });
 
-/** Trilha de navegação: [["Início", "/"], ["Temas", "/temas/"], ...]. */
+/** Trilha de navegação: [["Principal", "/"], ["Temas", "/temas/"], ...]. */
 export const trilha = (itens: { nome: string; caminho: string }[]) => ({
   "@type": "BreadcrumbList",
   itemListElement: itens.map((item, i) => ({
