@@ -5,8 +5,10 @@ O site é gerado pelo Astro a partir de arquivos de texto (Markdown). Cada envio
 A pasta do projeto no Mac é:
 
 ```
-~/Documents/Márcio Maron/marciomaron.com.br
+~/Sites/marciomaron.com.br
 ```
+
+Há um atalho para ela em `Documentos/Márcio Maron/marciomaron.com.br`. A pasta fica fora de Documentos porque o macOS não deixa tarefas agendadas mexerem em Documentos, e para o iCloud não sincronizar os arquivos técnicos do site.
 
 ## 1. Publicar um artigo novo
 
@@ -16,7 +18,7 @@ A pasta do projeto no Mac é:
    O endereço do artigo será `marciomaron.com.br/artigos/carf-frete-insumos/`. A data do nome não aparece no endereço.
 3. Preencha o cabeçalho (entre as linhas `---`) e escreva o texto abaixo dele.
 4. Quando estiver pronto, troque `rascunho: true` por `rascunho: false`.
-5. Envie ao GitHub (seção 4).
+5. Pronto. O Mac envia sozinho ao GitHub às 12h e às 19h (seção 4). Se quiser publicar na hora, use a opção A ou B da seção 4.
 
 ### Campos do cabeçalho
 
@@ -60,10 +62,44 @@ Não renomeie o arquivo de um artigo já publicado: o endereço mudaria e os lin
 
 ## 4. Enviar ao GitHub (publicar)
 
-### Opção A – pelo Terminal
+### Automático – todos os dias às 12h e às 19h
+
+O Mac verifica a pasta `src/content/artigos/` (e `public/`) duas vezes por dia. Se houver artigo novo ou alterado, ele:
+
+1. traz antes o que você tiver editado pelo site do GitHub;
+2. compila o site para conferir se não há erro;
+3. envia ao GitHub, que publica em cerca de um minuto;
+4. mostra uma notificação no canto da tela com o resultado.
+
+Cuidados:
+
+- **Rascunhos ficam só no Mac.** Artigo com `rascunho: true` não é enviado, porque o repositório no GitHub é público e qualquer pessoa poderia ler o texto ali. Quando trocar para `rascunho: false`, ele vai no envio seguinte. Artigo com data futura é enviado e fica oculto no site até a data, mas o texto já pode ser lido no GitHub.
+- **Se houver erro, nada é enviado.** A notificação avisa, e a mensagem completa fica no registro: abra o app **Console**, clique em **Registros** e depois em `publicacao-blog.log` (ou abra `~/Library/Logs/publicacao-blog.log`). Corrija o arquivo; o envio sai no horário seguinte.
+- **O Mac precisa estar ligado.** Se estiver dormindo no horário, o envio acontece quando ele acordar. Se estiver desligado, fica para o próximo horário.
+- Só artigos e a pasta `public/` são enviados automaticamente. Mudanças em layout, cores ou configuração precisam da opção A.
+
+Para testar sem enviar nada (compila e confere o acesso ao GitHub):
 
 ```bash
-cd ~/Documents/"Márcio Maron"/marciomaron.com.br
+~/Sites/marciomaron.com.br/scripts/publicar-automatico.sh --teste
+```
+
+Para desligar o envio automático:
+
+```bash
+launchctl bootout gui/$(id -u)/br.com.marciomaron.publicacao
+```
+
+Para religar:
+
+```bash
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/br.com.marciomaron.publicacao.plist
+```
+
+### Opção A – pelo Terminal, na hora
+
+```bash
+cd ~/Sites/marciomaron.com.br
 ```
 
 ```bash
@@ -97,7 +133,7 @@ Em https://github.com/marciomaron/marciomaron.github.io/actions cada envio apare
 ## 5. Ver o site no seu Mac antes de publicar
 
 ```bash
-cd ~/Documents/"Márcio Maron"/marciomaron.com.br
+cd ~/Sites/marciomaron.com.br
 ```
 
 ```bash

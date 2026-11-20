@@ -13,6 +13,8 @@ Blog de notícias e análises tributárias de Márcio Maron (advogado tributaris
 - Busca: Pagefind roda após o `astro build` (`npm run build`). Só indexa `[data-pagefind-body]` (corpo dos artigos).
 - Fontes (escolha do autor, igual ao site anterior): títulos em Playfair Display (`public/fonts/playfair-display.woff2`, variável 400–900, com reserva Georgia ajustada por `size-adjust`); texto na fonte do sistema, peso 300, entrelinha 1,7. O autor rejeitou Source Serif 4. O cartão OG usa instâncias TTF da Playfair em `src/assets/og/` (o Satori não lê WOFF2).
 - Perfil do autor na página inicial (`src/textos/perfil.md`); não há página Sobre. Página `/contato/` com os links do autor e os dados da Advocacia Dias de Souza.
+- Pasta real: `~/Sites/marciomaron.com.br` (atalho simbólico em `~/Documents/Márcio Maron/`). Fica fora de Documentos porque o TCC do macOS bloqueia tarefas do launchd ali.
+- Envio automático: `scripts/publicar-automatico.sh`, agendado pelo launchd (`~/Library/LaunchAgents/br.com.marciomaron.publicacao.plist`, 12h e 19h). Faz pull, compila, e faz commit + push só de `src/content/artigos/` e `public/`; artigos com `rascunho: true` não são enviados (repositório público). Registro em `~/Library/Logs/publicacao-blog.log`; `--teste` compila e faz `git push --dry-run`.
 - Redirecionamentos de endereços antigos (site Publii) em `public/*.html` com meta refresh (GitHub Pages não faz 301).
 
 ## Cuidados
