@@ -26,7 +26,7 @@ const descricao = descricaoDoTema(tema) ?? `Artigos sobre ${nome} publicados em 
   jsonLd={grafo(
     { "@type": "CollectionPage", name: nome, description: descricao, url: `${site.url}${caminhoDoTema(tema)}` },
     trilha([
-      { nome: "Principal", caminho: "/" },
+      { nome: "Márcio Maron", caminho: "/" },
       { nome: "Temas", caminho: "/temas/" },
       { nome, caminho: caminhoDoTema(tema) },
     ]),

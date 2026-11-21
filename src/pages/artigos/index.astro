@@ -12,7 +12,7 @@ const artigos = await getArtigos();
   title="Artigos"
   description={`Todos os artigos de ${site.name}, do mais recente ao mais antigo.`}
   trail={[{ label: "Artigos" }]}
-  jsonLd={grafo(trilha([{ nome: "Principal", caminho: "/" }, { nome: "Artigos", caminho: "/artigos/" }]))}
+  jsonLd={grafo(trilha([{ nome: "Márcio Maron", caminho: "/" }, { nome: "Artigos", caminho: "/artigos/" }]))}
 >
   <h1 class="page-title">Artigos</h1>
   <ListaDeArtigos artigos={artigos} />
