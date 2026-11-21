@@ -8,4 +8,4 @@ Tenho me dedicado ao estudo aprofundado da reforma tributária que instituiu os 
 
 Para entrar em contato, fale comigo no [WhatsApp](https://wa.me/5561999346785?text=Ol%C3%A1%2C%20consegui%20o%20seu%20contato%20pelo%20seu%20site.%20Preciso%20falar%20com%20voc%C3%AA.), [e-mail](mailto:marcio.maron@marciomaron.com.br) ou [LinkedIn](https://www.linkedin.com/in/marciomaron).
 
-Márcio Maron
+**Márcio Maron**

@@ -281,6 +281,9 @@ h1,
 .perfil strong {
   color: var(--fg);
 }
+.perfil strong {
+  font-weight: 600;
+}
 
 /* ---------- Listas de artigos ---------- */
 .year-group {
@@ -367,7 +370,9 @@ h1,
 .article-header {
   margin-bottom: 32px;
 }
+/* Título em negrito só na página do próprio artigo; nas listas fica normal. */
 .article-header h1 {
+  font-weight: 600;
   margin-bottom: 12px;
 }
 .byline,
