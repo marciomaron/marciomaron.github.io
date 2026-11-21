@@ -28,10 +28,10 @@ const temas = temasEmUso(artigos);
     pessoa(),
   )}
 >
-  <h1 class="home-title">{site.name}</h1>
-  <div class="prose perfil"><Perfil /></div>
+  <h1 class="visualmente-oculto">{site.name}</h1>
+  <div class="perfil"><Perfil /></div>
 
-  <h2 class="section-title">Artigos</h2>
+  <h2 class="visualmente-oculto">Artigos</h2>
   <ListaDeArtigos artigos={artigos} />
   {
     temas.length > 0 && (
