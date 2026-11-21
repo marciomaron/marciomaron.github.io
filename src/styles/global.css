@@ -260,8 +260,7 @@ h1,
   line-height: 24px;
   margin: 0 0 32px;
 }
-.section-title,
-.temas-home h2 {
+.section-title {
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
@@ -336,13 +335,6 @@ h1,
   border: 1px solid #d9a441;
   border-radius: 6px;
   background: #d9a4411a;
-}
-.temas-home p {
-  color: var(--muted);
-  line-height: 24px;
-}
-.temas-home a {
-  color: var(--fg);
 }
 .term-list {
   list-style: none;

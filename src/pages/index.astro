@@ -3,12 +3,10 @@ import Base from "../layouts/Base.astro";
 import ListaDeArtigos from "../components/ListaDeArtigos.astro";
 import Perfil from "../textos/perfil.md";
 import { site, author } from "../config";
-import { getArtigos, temasEmUso, caminhoDoTema } from "../lib/artigos";
-import { nomeDoTema } from "../lib/taxonomia";
+import { getArtigos } from "../lib/artigos";
 import { grafo, pessoa, siteWeb } from "../lib/jsonld";
 
 const artigos = await getArtigos();
-const temas = temasEmUso(artigos);
 ---
 
 <Base
@@ -33,19 +31,4 @@ const temas = temasEmUso(artigos);
 
   <h2 class="visualmente-oculto">Artigos</h2>
   <ListaDeArtigos artigos={artigos} />
-  {
-    temas.length > 0 && (
-      <nav class="temas-home" aria-label="Temas">
-        <h2>Temas</h2>
-        <p>
-          {temas.map(([t], i) => (
-            <>
-              {i > 0 && " · "}
-              <a href={caminhoDoTema(t)}>{nomeDoTema(t)}</a>
-            </>
-          ))}
-        </p>
-      </nav>
-    )
-  }
 </Base>
